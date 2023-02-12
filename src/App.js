@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:8000/get-chats/')
     .then((res) => {
-      setChats(res.data)
+      setChats(res.data.reverse());
     })
     .catch((err) => {
       console.log(err)
@@ -41,7 +41,7 @@ function App() {
       
       <div className="mt-5 p-2 bg-slate-300 rounded-lg">
         <input className="pt-2 pb-2 pl-2 border-2 border-black rounded-lg" type="text" placeholder="Enter Username" onChange={(e) => setUsername(e.target.value)} />
-        <input className="ml-2 pt-2 pb-2 pl-2 border-2 border-black rounded-lg" type="text" placeholder="Enter Text" onChange={(e) => setText(e.target.value)} />
+        <input className="ml-2 pt-2 pb-2 pl-2 border-2 border-black rounded-lg" type="text" placeholder="Enter Text" value={text} onChange={(e) => setText(e.target.value)} />
         <input className="p-2 ml-2 border-2 border-black rounded-lg" type="submit" onClick={create_chat}  />
       </div>
 
@@ -50,7 +50,7 @@ function App() {
         {
           chats.map((data) => {
             return (
-              <div key={data['id']} className="mt-5 p-4 w-24 min-w-fit bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg">
+              <div key={data['id']} className="mt-5 p-4 w-fit bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg">
                 <h1 className="text-3xl font-bold">{data['username']}</h1>
                 <p>{data['text']}</p>
               </div>
